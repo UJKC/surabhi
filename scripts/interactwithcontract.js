@@ -5,16 +5,29 @@ async function main() {
   const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545");
 
   // Your account private key from Ganache
-  const privateKey = "0x294b26ffd0d3f08dfbc57dfa3582dcc7241bbce7c6c556adbb2d88cc2373c4b4"; // Replace with your account private key
+  const privateKey = "0xfb74137c1a12499b04bdbff9d7d121b0e35c20127d4a6f8a2e29d1f39792ad57"; // Replace with your account private key
 
   // Create wallet instance with the private key
   const wallet = new ethers.Wallet(privateKey, provider);
 
   // The address of the deployed contract
-  const contractAddress = "0x55B3B8BaCf3094Cd5Ba55D1E859A1b29c833Df5f";
+  const contractAddress = "0xE8FCbFb51C891E7ccF3C343DdFB88E390867ef6C";
 
   // The ABI of the SimpleStorage contract
   const abi = [
+    {
+      "inputs": [],
+      "name": "get",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
     {
       "inputs": [
         {
@@ -30,7 +43,7 @@ async function main() {
     },
     {
       "inputs": [],
-      "name": "get",
+      "name": "storedData",
       "outputs": [
         {
           "internalType": "uint256",

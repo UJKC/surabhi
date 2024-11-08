@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SimpleStorage Contract Interaction</title>
+</head>
+<body>
+  <h1>SimpleStorage Contract Interaction</h1>
+
+  <!-- Deploy Contract Button -->
+  <button onclick="deployContract()">Deploy Contract</button>
+  <p id="deployResult"></p>
+
+  <!-- Set Value Button -->
+  <button onclick="setValue()">Set Value to 100</button>
+  <p id="setResult"></p>
+
+  <!-- Get Stored Value Button -->
+  <button onclick="getStoredValue()">Get Stored Value</button>
+  <p id="storedValue"></p>
+
+  <script>
+    // Base URL of the API
+    const apiUrl = 'http://localhost:3000';
+
+    async function deployContract() {
+      try {
+        const response = await fetch(`${apiUrl}/deploy`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        document.getElementById("deployResult").innerText = `Contract deployed at: ${data.contractAddress}`;
+      } catch (error) {
+        console.error('Error deploying contract:', error);
+      }
+    }
+
+    async function setValue() {
+      try {
+        const response = await fetch(`${apiUrl}/setValue`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ value: 100 })
+        });
+        const data = await response.json();
+        document.getElementById("setResult").innerText = `Transaction Hash: ${data.transactionHash}`;
+      } catch (error) {
+        console.error('Error setting value:', error);
+      }
+    }
+
+    async function getStoredValue() {
+      try {
+        const response = await fetch(`${apiUrl}/getStoredValue`);
+        const data = await response.json();
+        document.getElementById("storedValue").innerText = `Stored Value: ${data.storedValue}`;
+      } catch (error) {
+        console.error('Error getting stored value:', error);
+      }
+    }
+  </script>
+</body>
+</html>
